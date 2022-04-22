@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import './App.css'
-import BodyContainer from './Components/BodyContainer'
-import Formulario from './Components/Formulario'
-import Header from './Components/Header'
-import ListadoPacientes from './Components/ListadoPacientes'
+import BodyContainer from './Components/Main/BodyContainer'
+import Formulario from './Components/Forms/Formulario'
+import Header from './Components/Header/Header'
+import ListadoPacientes from './Components/Pacientes/ListadoPacientes'
 
 function App() {
   const [count, setCount] = useState(0)
