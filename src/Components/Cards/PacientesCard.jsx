@@ -1,7 +1,9 @@
 import React from 'react'
+import Button from '../Common/Button'
 
-function PacientesCard({paciente}) {
+function PacientesCard({paciente, handleDelete, handleEdit}) {
     const{mascota, propietario, email, alta, sintomas}=paciente
+   
   return (
     <div className='m-3 bg-white shadow-md py-3 px-3 rounded-xl w-full'>
     <div className='mb-1'>
@@ -25,6 +27,10 @@ function PacientesCard({paciente}) {
       <span className='font-normal normal-case'>
       {sintomas}
       </span>
+    </div>
+    <div className='flex justify-around'>
+      <Button style='bg-indigo-600 hover:bg-indigo-700' fn={handleEdit}>Editar</Button>
+      <Button style='bg-red-600 hover:bg-red-700' fn={handleDelete}>Eliminar</Button>
     </div>
   </div>
   )

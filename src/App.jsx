@@ -9,7 +9,7 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className='mx-auto'>
+    <div className='container mx-auto'>
       <Header/>
       <BodyContainer/>
     </div>
