@@ -29,8 +29,8 @@ function PacientesCard({paciente, handleDelete, handleEdit}) {
       </span>
     </div>
     <div className='flex justify-around'>
-      <Button style='bg-indigo-600 hover:bg-indigo-700' fn={handleEdit}>Editar</Button>
-      <Button style='bg-red-600 hover:bg-red-700' fn={handleDelete}>Eliminar</Button>
+      <Button style='bg-indigo-600 hover:bg-indigo-700' fn={handleEdit} paciente={paciente}>Editar</Button>
+      <Button style='bg-red-600 hover:bg-red-700' fn={handleDelete} paciente={paciente}>Eliminar</Button>
     </div>
   </div>
   )
