@@ -1,13 +1,15 @@
 import React from 'react'
 import PacientesCard from '../Cards/PacientesCard'
 
-function ListadoPacientes({pacientes}) {
+function ListadoPacientes({pacientes, setPacientes, setPaciente}) {
   
   const handleDelete = (e) =>{
-      console.log(e)
+      alert(`Se eliminará paciente ${e.mascota}`)
+      const listadoPacientes=pacientes.filter(paciente=>paciente.id !== e.id);
+      setPacientes(listadoPacientes);
   };
   const handleEdit = (e) =>{
-    console.log(e)
+    setPaciente(e)
   };
   return (
       <div className='md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll' >

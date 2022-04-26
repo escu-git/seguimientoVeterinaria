@@ -1,14 +1,15 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { idGen } from '../../Helpers/helpers';
 import ShowError from '../Errors/ShowError';
 
-function Formulario({setPacientes, pacientes}) {
+function Formulario({setPacientes, pacientes, paciente  }) {
     const[mascota, setMascota]=useState('');
     const[propietario, setPropietario]=useState('');
     const[email, setEmail]=useState('');
     const[alta, setAlta]=useState('');
     const[sintomas, setSintomas]=useState('');
     const[error, setError]=useState(false);
+    const[edit, setEdit]=useState(false);
 
     const handleSubmit = (formData) =>{
         formData.preventDefault()
@@ -18,16 +19,25 @@ function Formulario({setPacientes, pacientes}) {
             return
         }
         setError(false);
+
         const nuevoPaciente = {
-            id:idGen(),
+            id:edit? paciente.id : idGen(),
             mascota,
             propietario,
             email,
             alta,
             sintomas
         };
-        const listadoPacientes = [...pacientes, nuevoPaciente];
-        setPacientes(listadoPacientes)
+        console.log(nuevoPaciente)
+        if(edit){
+            const nuevoListado = pacientes.map(pac=> pac.id === nuevoPaciente.id? nuevoPaciente : pac)
+            console.log(nuevoListado)
+            setPacientes(nuevoListado)
+        }else{
+            const listadoPacientes = [...pacientes, nuevoPaciente];
+            setPacientes(listadoPacientes)
+        }
+        setEdit(false)
         setMascota('');
         setPropietario('');
         setEmail('');
@@ -35,6 +45,16 @@ function Formulario({setPacientes, pacientes}) {
         setSintomas('');
     }
     
+    useEffect(()=>{
+        if(Object.keys(paciente).length > 0){
+            setEdit(true);
+            setMascota(paciente.mascota);
+            setPropietario(paciente.propietario);
+            setEmail(paciente.email);
+            setAlta(paciente.alta);
+            setSintomas(paciente.sintomas);
+        }
+    },[paciente])
 
   return (
     <div className='md:w-1/2 lg:w-2/5 mx-5'>
@@ -65,7 +85,7 @@ function Formulario({setPacientes, pacientes}) {
             <label htmlFor='sintomas' className='block text-gray-700 uppercase font-bold'>Sintomas</label>
             <textarea value={sintomas} id='sintomas' className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md ' placeholder='Describa los sintomas de la mascota' onChange={(e)=>setSintomas(e.target.value)} />
         </div>
-        <input type='submit' className='bg-indigo-600 w-full p-3 uppercase font-bold hover:bg-indigo-500 text-white rounded-lg transition-colors mb-10 hover:shadow-lg' value='Añadir paciente'/>
+        <input type='submit' className='bg-indigo-600 w-full p-3 uppercase font-bold hover:bg-indigo-500 text-white rounded-lg transition-colors mb-10 hover:shadow-lg' value={edit?'Editar Paciente':'Añadir paciente'}/>
     </form>
     </div>
   )
